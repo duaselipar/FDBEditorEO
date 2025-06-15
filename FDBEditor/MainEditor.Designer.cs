@@ -18,6 +18,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainEditor));
             btnLoad = new Button();
             dataGridView1 = new DataGridView();
             btnSave = new Button();
@@ -121,7 +122,7 @@
             cmbSearchColumn.Size = new Size(121, 23);
             cmbSearchColumn.TabIndex = 8;
             // 
-            // Form1
+            // MainEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -135,8 +136,9 @@
             Controls.Add(btnSave);
             Controls.Add(dataGridView1);
             Controls.Add(btnLoad);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
-            Name = "Form1";
+            Name = "MainEditor";
             Text = "FDB Editor by DuaSelipar";
             KeyDown += Form1_KeyDown;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

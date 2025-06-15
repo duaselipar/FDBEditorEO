@@ -9,7 +9,12 @@
 		<PublishSingleFile>true</PublishSingleFile>
 		<SelfContained>false</SelfContained>
 		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<ApplicationIcon>fdb.ico</ApplicationIcon>
 
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="fdb.ico" />
+  </ItemGroup>
 
 </Project>
