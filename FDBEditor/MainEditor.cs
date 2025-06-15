@@ -68,6 +68,20 @@ namespace FDBEditor
                     e.Handled = true;
                 }
             };
+
+            UpdateControlState(false); // Mula-mula semua disable
+
+        }
+        private void UpdateControlState(bool fileLoaded)
+        {
+            btnSave.Enabled = fileLoaded;
+            btnAutoFit.Enabled = fileLoaded;
+            btnExport.Enabled = fileLoaded;
+            btnImport.Enabled = fileLoaded;
+            cmbSearchColumn.Enabled = fileLoaded;
+            txtSearch.Enabled = fileLoaded;
+            btnSearch.Enabled = fileLoaded;
+            dataGridView1.Enabled = fileLoaded;
         }
 
 
@@ -184,6 +198,7 @@ namespace FDBEditor
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
+            UpdateControlState(false); // Sentiasa reset dahulu
             // Clean up
             if (fdbRows != null) fdbRows.Clear();
             if (fdbFields != null) fdbFields.Clear();
@@ -194,6 +209,12 @@ namespace FDBEditor
             dataGridView1.Columns.Clear();
             dataGridView1.RowCount = 0;
             dataGridView1.DataSource = null;
+
+            // Kosongkan dropdown search column
+            cmbSearchColumn.Items.Clear();
+            cmbSearchColumn.Items.Add("All");
+            cmbSearchColumn.SelectedIndex = 0;
+
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
@@ -202,7 +223,10 @@ namespace FDBEditor
                 Filter = "FDB Files (*.fdb)|*.fdb|All Files (*.*)|*.*"
             };
             if (dlg.ShowDialog() != DialogResult.OK)
+            {
+                UpdateControlState(false);
                 return;
+            }
 
             loadedFilePath = dlg.FileName;
             string fileName = Path.GetFileName(loadedFilePath);
@@ -219,6 +243,7 @@ namespace FDBEditor
                 }
                 dataGridView1.RowCount = fdbRows.Count;
 
+                // Update dropdown hanya bila loaded sukses
                 cmbSearchColumn.Items.Clear();
                 cmbSearchColumn.Items.Add("All");
                 foreach (var field in fdbFields)
@@ -226,19 +251,32 @@ namespace FDBEditor
                 cmbSearchColumn.SelectedIndex = 0;
 
                 this.Text = $"FDB Editor ({fileName}) — {fdbRows.Count} records, {fdbFields.Count} fields";
+                UpdateControlState(true); // Only enable controls lepas load OK
+
+            }
+            catch (IOException ex) when (ex.Message.Contains("because it is being used by another process"))
+            {
+                MessageBox.Show(
+                    "Failed to load FDB:\n\nFile is currently used by another process.\n\n" +
+                    "Please close the game/client FIRST before opening this FDB file.",
+                    "File in Use",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning
+                );
+                loadedFilePath = "";
+                originalHeader = null;
+                UpdateControlState(false);
+                return;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Failed to load FDB:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                loadedFilePath = "";
+                originalHeader = null;
+                UpdateControlState(false);
+                return;
             }
-
-            cmbSearchColumn.Items.Clear();
-            cmbSearchColumn.Items.Add("All");
-            foreach (var field in fdbFields)
-                cmbSearchColumn.Items.Add(field.Name);
-            cmbSearchColumn.SelectedIndex = 0; // Default to "All"
-
         }
+
 
         // ---- Virtual Mode Cell Events ----
         private void DataGridView1_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)

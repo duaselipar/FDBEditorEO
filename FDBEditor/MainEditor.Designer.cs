@@ -151,12 +151,10 @@
 
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnAutoFit;
-        private Button btnExport;
-        private Button btnImport;
-        private TextBox txtSearch;
-        private Button btnSearch;
-        private ComboBox cmbSearchColumn;
+
+        public Button btnSave, btnAutoFit, btnExport, btnImport, btnSearch;
+        public ComboBox cmbSearchColumn;
+        public TextBox txtSearch;
+
     }
 }
