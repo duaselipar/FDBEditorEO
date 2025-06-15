@@ -33,12 +33,6 @@ Supports massive files, instant sorting, batch edit, CSV import/export, and more
 
 ---
 
-## 📸 Screenshots
-
-> ![FDBEditorEO screenshot](https://raw.githubusercontent.com/duaselipar/FDBEditorEO/main/screenshots/main.png)
-
----
-
 ## 📄 How To Use
 
 1. **Load FDB File:**  
