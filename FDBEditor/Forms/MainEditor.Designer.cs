@@ -28,6 +28,7 @@
             txtSearch = new TextBox();
             btnSearch = new Button();
             cmbSearchColumn = new ComboBox();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -43,30 +44,39 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToOrderColumns = true;
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridView1.Location = new Point(12, 54);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.RowHeadersWidth = 45;
             dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridView1.RowTemplate.Height = 29;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(1018, 707);
             dataGridView1.TabIndex = 1;
+            dataGridView1.VirtualMode = true;
+            dataGridView1.CellValueNeeded += DataGridView1_CellValueNeeded;
+            dataGridView1.CellValuePushed += DataGridView1_CellValuePushed;
+            dataGridView1.ColumnHeaderMouseClick += DataGridView1_ColumnHeaderMouseClick;
+            dataGridView1.MouseMove += DataGridView1_MouseMove;
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(138, 12);
+            btnSave.Location = new Point(910, 12);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(120, 32);
             btnSave.TabIndex = 2;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // btnAutoFit
             // 
-            btnAutoFit.Location = new Point(264, 12);
+            btnAutoFit.Location = new Point(138, 11);
             btnAutoFit.Name = "btnAutoFit";
             btnAutoFit.Size = new Size(120, 32);
             btnAutoFit.TabIndex = 3;
@@ -76,7 +86,7 @@
             // 
             // btnExport
             // 
-            btnExport.Location = new Point(390, 12);
+            btnExport.Location = new Point(264, 12);
             btnExport.Name = "btnExport";
             btnExport.Size = new Size(102, 32);
             btnExport.TabIndex = 4;
@@ -86,7 +96,7 @@
             // 
             // btnImport
             // 
-            btnImport.Location = new Point(498, 12);
+            btnImport.Location = new Point(372, 12);
             btnImport.Name = "btnImport";
             btnImport.Size = new Size(101, 32);
             btnImport.TabIndex = 5;
@@ -96,7 +106,7 @@
             // 
             // txtSearch
             // 
-            txtSearch.Location = new Point(786, 16);
+            txtSearch.Location = new Point(665, 18);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(147, 23);
             txtSearch.TabIndex = 6;
@@ -104,7 +114,7 @@
             // 
             // btnSearch
             // 
-            btnSearch.Location = new Point(939, 16);
+            btnSearch.Location = new Point(818, 17);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(75, 23);
             btnSearch.TabIndex = 7;
@@ -117,16 +127,26 @@
             cmbSearchColumn.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSearchColumn.FormattingEnabled = true;
             cmbSearchColumn.Items.AddRange(new object[] { "All" });
-            cmbSearchColumn.Location = new Point(659, 18);
+            cmbSearchColumn.Location = new Point(538, 18);
             cmbSearchColumn.Name = "cmbSearchColumn";
             cmbSearchColumn.Size = new Size(121, 23);
             cmbSearchColumn.TabIndex = 8;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(484, 22);
+            label1.Name = "label1";
+            label1.Size = new Size(48, 15);
+            label1.TabIndex = 9;
+            label1.Text = "Search :";
             // 
             // MainEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1042, 773);
+            Controls.Add(label1);
             Controls.Add(cmbSearchColumn);
             Controls.Add(btnSearch);
             Controls.Add(txtSearch);
@@ -140,7 +160,6 @@
             KeyPreview = true;
             Name = "MainEditor";
             Text = "FDB Editor by DuaSelipar";
-            KeyDown += Form1_KeyDown;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -155,6 +174,6 @@
         public Button btnSave, btnAutoFit, btnExport, btnImport, btnSearch;
         public ComboBox cmbSearchColumn;
         public TextBox txtSearch;
-
+        private Label label1;
     }
 }
