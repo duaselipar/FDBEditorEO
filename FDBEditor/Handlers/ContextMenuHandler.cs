@@ -30,7 +30,7 @@ namespace FDBEditorEO.Handlers
             AddItem("Copy Row(s)", Keys.Control | Keys.C, CopySelectedRows_Click);
             AddItem("Paste Row(s)", Keys.Control | Keys.V, PasteRows_Click);
             AddItem("Delete Selected Row(s)", Keys.Delete, DeleteSelectedRows_Click);
-            AddItem("Export Selected Row(s)...", Keys.Control | Keys.E, ExportSelectedRows_Click);
+            AddItem("Export Selected Row(s)", Keys.Control | Keys.E, ExportSelectedRows_Click);
         }
 
         private void AddItem(string text, Keys shortcut, EventHandler handler)
